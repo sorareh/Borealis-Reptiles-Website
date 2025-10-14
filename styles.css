@@ -10,14 +10,12 @@ body {
     line-height: 1.6;
     color: #333;
     background-color: #f8f9fa;
-    padding: 0;
-    margin: 0;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 30px;
+    padding: 0 20px;
 }
 
 /* Header and Navigation */
@@ -85,12 +83,11 @@ body {
 /* Main Content */
 main {
     min-height: calc(100vh - 140px);
-    padding: 2rem 0;
 }
 
 .tab-content {
     display: none;
-    padding: 3rem 0;
+    padding: 2rem 0;
 }
 
 .tab-content.active {
@@ -101,11 +98,10 @@ main {
 .hero {
     background: linear-gradient(135deg, #4a7c59, #2c5530);
     color: white;
-    padding: 5rem 2rem;
+    padding: 4rem 0;
     display: flex;
     align-items: center;
     gap: 3rem;
-    margin: 0 -30px;
 }
 
 .hero-content {
@@ -160,9 +156,8 @@ main {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    padding: 5rem 2rem;
+    padding: 4rem 0;
     background: white;
-    margin: 0 -30px;
 }
 
 .feature-card {
@@ -194,16 +189,14 @@ main {
     text-align: center;
     font-size: 1.1rem;
     color: #666;
-    margin-bottom: 4rem;
-    padding: 0 2rem;
+    margin-bottom: 3rem;
 }
 
 .breeding-pairs-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 2.5rem;
+    gap: 2rem;
     margin-top: 2rem;
-    padding: 0 1rem;
 }
 
 .breeding-pair-card {
@@ -214,7 +207,6 @@ main {
     transition: all 0.3s ease;
     cursor: pointer;
     border: 2px solid transparent;
-    margin: 1rem 0;
 }
 
 .breeding-pair-card:hover {
@@ -327,9 +319,8 @@ main {
 .merchandise-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2.5rem;
+    gap: 2rem;
     margin-top: 2rem;
-    padding: 0 1rem;
 }
 
 .merch-item {
@@ -339,7 +330,6 @@ main {
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
     border: 2px solid transparent;
-    margin: 1rem 0;
 }
 
 .merch-item:hover {
@@ -422,7 +412,6 @@ main {
     gap: 3rem;
     align-items: center;
     margin-top: 2rem;
-    padding: 2rem 0;
 }
 
 .about-text h3 {
@@ -445,17 +434,15 @@ main {
 .care-sheets {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2.5rem;
+    gap: 2rem;
     margin-top: 2rem;
-    padding: 0 1rem;
 }
 
 .care-card {
     background: white;
-    padding: 2.5rem;
+    padding: 2rem;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    margin: 1rem 0;
 }
 
 .care-card h3 {
@@ -617,12 +604,11 @@ main {
     grid-template-columns: 2fr 1fr;
     gap: 3rem;
     margin-top: 2rem;
-    padding: 2rem 0;
 }
 
 .contact-form {
     background: white;
-    padding: 2.5rem;
+    padding: 2rem;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
 }
@@ -720,7 +706,7 @@ main {
 .contact-info {
     background: linear-gradient(135deg, #4a7c59, #2c5530);
     color: white;
-    padding: 2.5rem;
+    padding: 2rem;
     border-radius: 15px;
     height: fit-content;
 }
@@ -781,9 +767,8 @@ main {
 footer {
     background: #2c5530;
     color: white;
-    padding: 3rem 0;
+    padding: 2rem 0;
     text-align: center;
-    margin-top: 2rem;
 }
 
 footer .container {
