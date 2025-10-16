@@ -7,6 +7,117 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        /* Password Protection Modal Styles */
+        .password-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .password-container {
+            background: linear-gradient(135deg, #4a7c59, #2c5530);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .password-container h2 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        
+        .password-container p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+        }
+        
+        .password-input:focus {
+            outline: none;
+            background: white;
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        
+        .password-submit {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .password-submit:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .error-message {
+            color: #ff6b6b;
+            margin-top: 1rem;
+            font-weight: 600;
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .site-content {
+            transition: opacity 0.3s ease;
+        }
+        
+        .site-content.blurred {
+            filter: blur(5px);
+            pointer-events: none;
+        }
         body {
             padding: 2rem;
             background-color: #f8f9fa;
@@ -225,6 +336,20 @@
     </style>
 </head>
 <body>
+    <!-- Password Protection Modal -->
+    <div id="passwordModal" class="password-modal">
+        <div class="password-container">
+            <h2><i class="fas fa-lock"></i> Access Required</h2>
+            <p>Please enter the password to access Borealis Reptiles</p>
+            <input type="password" id="passwordInput" class="password-input" placeholder="Enter password..." autocomplete="off">
+            <button id="passwordSubmit" class="password-submit">
+                <i class="fas fa-unlock"></i> Access Site
+            </button>
+            <div id="errorMessage" class="error-message hidden"></div>
+        </div>
+    </div>
+    
+    <div class="site-content">
     <a href="index.html" class="back-btn" title="Back to Main Site">
         <i class="fas fa-arrow-left"></i>
     </a>
@@ -498,5 +623,109 @@
             `;
         }
     </script>
+    
+    <script>
+        // Password Protection System for Edit Page
+        const CORRECT_PASSWORD = 'duncan';
+
+        // Check if user is already authenticated
+        function checkAuthentication() {
+            return sessionStorage.getItem('authenticated') === 'true';
+        }
+
+        // Show password modal
+        function showPasswordModal() {
+            const modal = document.getElementById('passwordModal');
+            const siteContent = document.querySelector('.site-content');
+            
+            if (modal && siteContent) {
+                modal.style.display = 'flex';
+                siteContent.classList.add('blurred');
+            }
+        }
+
+        // Hide password modal
+        function hidePasswordModal() {
+            const modal = document.getElementById('passwordModal');
+            const siteContent = document.querySelector('.site-content');
+            
+            if (modal && siteContent) {
+                modal.style.display = 'none';
+                siteContent.classList.remove('blurred');
+            }
+        }
+
+        // Validate password
+        function validatePassword(password) {
+            return password === CORRECT_PASSWORD;
+        }
+
+        // Show error message
+        function showErrorMessage(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            if (errorDiv) {
+                errorDiv.textContent = message;
+                errorDiv.classList.remove('hidden');
+                
+                // Hide error after 3 seconds
+                setTimeout(() => {
+                    errorDiv.classList.add('hidden');
+                }, 3000);
+            }
+        }
+
+        // Handle password submission
+        function handlePasswordSubmit() {
+            const passwordInput = document.getElementById('passwordInput');
+            const password = passwordInput.value.trim();
+            
+            if (validatePassword(password)) {
+                // Store authentication in session storage
+                sessionStorage.setItem('authenticated', 'true');
+                hidePasswordModal();
+            } else {
+                showErrorMessage('Incorrect password. Please try again.');
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        }
+
+        // Initialize password protection
+        function initPasswordProtection() {
+            // Check if already authenticated
+            if (checkAuthentication()) {
+                hidePasswordModal();
+                return;
+            }
+            
+            // Show password modal
+            showPasswordModal();
+            
+            // Add event listeners
+            const passwordInput = document.getElementById('passwordInput');
+            const passwordSubmit = document.getElementById('passwordSubmit');
+            
+            if (passwordInput && passwordSubmit) {
+                // Handle submit button click
+                passwordSubmit.addEventListener('click', handlePasswordSubmit);
+                
+                // Handle Enter key press
+                passwordInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        handlePasswordSubmit();
+                    }
+                });
+                
+                // Focus on input
+                passwordInput.focus();
+            }
+        }
+
+        // Initialize password protection when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initPasswordProtection();
+        });
+    </script>
+    </div>
 </body>
 </html>

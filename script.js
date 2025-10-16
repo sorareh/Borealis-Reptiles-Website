@@ -1,3 +1,99 @@
+// Password Protection System
+const CORRECT_PASSWORD = 'duncan';
+
+// Check if user is already authenticated
+function checkAuthentication() {
+    return sessionStorage.getItem('authenticated') === 'true';
+}
+
+// Show password modal
+function showPasswordModal() {
+    const modal = document.getElementById('passwordModal');
+    const siteContent = document.querySelector('.site-content');
+    
+    if (modal && siteContent) {
+        modal.style.display = 'flex';
+        siteContent.classList.add('blurred');
+    }
+}
+
+// Hide password modal
+function hidePasswordModal() {
+    const modal = document.getElementById('passwordModal');
+    const siteContent = document.querySelector('.site-content');
+    
+    if (modal && siteContent) {
+        modal.style.display = 'none';
+        siteContent.classList.remove('blurred');
+    }
+}
+
+// Validate password
+function validatePassword(password) {
+    return password === CORRECT_PASSWORD;
+}
+
+// Show error message
+function showErrorMessage(message) {
+    const errorDiv = document.getElementById('errorMessage');
+    if (errorDiv) {
+        errorDiv.textContent = message;
+        errorDiv.classList.remove('hidden');
+        
+        // Hide error after 3 seconds
+        setTimeout(() => {
+            errorDiv.classList.add('hidden');
+        }, 3000);
+    }
+}
+
+// Handle password submission
+function handlePasswordSubmit() {
+    const passwordInput = document.getElementById('passwordInput');
+    const password = passwordInput.value.trim();
+    
+    if (validatePassword(password)) {
+        // Store authentication in session storage
+        sessionStorage.setItem('authenticated', 'true');
+        hidePasswordModal();
+    } else {
+        showErrorMessage('Incorrect password. Please try again.');
+        passwordInput.value = '';
+        passwordInput.focus();
+    }
+}
+
+// Initialize password protection
+function initPasswordProtection() {
+    // Check if already authenticated
+    if (checkAuthentication()) {
+        hidePasswordModal();
+        return;
+    }
+    
+    // Show password modal
+    showPasswordModal();
+    
+    // Add event listeners
+    const passwordInput = document.getElementById('passwordInput');
+    const passwordSubmit = document.getElementById('passwordSubmit');
+    
+    if (passwordInput && passwordSubmit) {
+        // Handle submit button click
+        passwordSubmit.addEventListener('click', handlePasswordSubmit);
+        
+        // Handle Enter key press
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                handlePasswordSubmit();
+            }
+        });
+        
+        // Focus on input
+        passwordInput.focus();
+    }
+}
+
 // Sample data for baby snakes from breeding pairs
 const babyData = {
     pair1: {
@@ -106,6 +202,9 @@ const babyData = {
 
 // Navigation functionality
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize password protection first
+    initPasswordProtection();
+    
     const navLinks = document.querySelectorAll('.nav-link');
     const tabContents = document.querySelectorAll('.tab-content');
     const hamburger = document.querySelector('.hamburger');
