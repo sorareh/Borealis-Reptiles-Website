@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Borealis Reptiles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<!-- Login screen (shown until authed) -->
+<section class="login-shell" id="loginShell">
+  <form class="login-card" id="loginForm">
+    <div class="brand" style="color:#fff;margin-bottom:1rem;justify-content:center;display:flex;gap:.6rem;font-family:var(--font-display);font-size:1.4rem;align-items:center;">
+      <span class="logo" style="background:radial-gradient(circle,var(--forest-500),var(--forest-900));width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:#f5e6c4;">
+        <i class="fas fa-dragon"></i>
+      </span>
+      Borealis <em style="font-style:italic">Admin</em>
+    </div>
+    <h1>Welcome back</h1>
+    <p>Enter the admin password to manage animals, pairs and purchase requests.</p>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="pw" required autocomplete="current-password" autofocus>
+    </div>
+    <button class="btn btn-primary" type="submit"><i class="fas fa-unlock"></i> Sign in</button>
+    <div id="loginError" class="help" style="color:#ffb4ab;margin-top:.8rem;display:none;"></div>
+    <div class="foot" id="envNote">Detecting backend…</div>
+  </form>
+</section>
+
+<!-- Admin shell (shown once authed) -->
+<div class="admin-shell hidden" id="adminShell">
+  <aside class="admin-side">
+    <a href="index.html" class="brand" style="color:#fff;text-decoration:none">
+      <span class="logo"><i class="fas fa-dragon"></i></span>
+      <span>Borealis</span>
+    </a>
+    <nav id="adminNav">
+      <a href="#dashboard" class="active" data-view="dashboard"><i class="fas fa-gauge-high"></i> Dashboard</a>
+      <a href="#animals"   data-view="animals"><i class="fas fa-dragon"></i> Animals</a>
+      <a href="#pairs"     data-view="pairs"><i class="fas fa-heart"></i> Breeding pairs</a>
+      <a href="#merch"     data-view="merch"><i class="fas fa-gem"></i> Merchandise</a>
+      <a href="#care"      data-view="care"><i class="fas fa-book-open"></i> Care sheets</a>
+      <a href="#requests"  data-view="requests"><i class="fas fa-envelope-open-text"></i> Purchase requests</a>
+      <a href="#tree"      data-view="tree"><i class="fas fa-sitemap"></i> Family tree</a>
+    </nav>
+    <div style="margin-top:2rem;">
+      <a href="index.html" style="color:rgba(255,255,255,.7);display:inline-flex;gap:.4rem;align-items:center;font-size:.9rem;">
+        <i class="fas fa-arrow-left"></i> Back to site
+      </a>
+    </div>
+    <div style="margin-top:2rem;">
+      <button class="btn btn-ghost btn-sm" id="logoutBtn" style="color:#fff;border-color:rgba(255,255,255,.2);width:100%;justify-content:center">
+        <i class="fas fa-sign-out-alt"></i> Sign out
+      </button>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
+      <div>
+        <h1 id="viewTitle">Dashboard</h1>
+        <p class="tag" id="viewSub">Welcome back.</p>
+      </div>
+      <span class="env-badge" id="envBadge">—</span>
+    </div>
+
+    <!-- Dashboard view -->
+    <section class="view" id="view-dashboard">
+      <div class="kpi-grid" id="kpiGrid"></div>
+      <div class="panel">
+        <h2>Recent purchase requests</h2>
+        <div id="dashRequests"></div>
+      </div>
+      <div class="panel">
+        <h2>Quick actions</h2>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap;">
+          <button class="btn btn-primary" data-go="animals"><i class="fas fa-plus"></i> Add an animal</button>
+          <button class="btn btn-ghost"   data-go="pairs"><i class="fas fa-heart"></i> Add a breeding pair</button>
+          <button class="btn btn-ghost"   data-go="requests"><i class="fas fa-envelope-open-text"></i> View requests</button>
+          <button class="btn btn-danger"  id="resetDemoBtn"><i class="fas fa-rotate-left"></i> Reset local demo data</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Animals view -->
+    <section class="view hidden" id="view-animals">
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;">
+          <h2 id="animalsFormTitle">Add an animal</h2>
+          <div style="display:flex;gap:.4rem;">
+            <button class="btn btn-ghost btn-sm" id="animalResetBtn" style="display:none;"><i class="fas fa-times"></i> Cancel edit</button>
+          </div>
+        </div>
+        <form id="animalForm">
+          <input type="hidden" name="id">
+          <div class="field-row">
+            <div class="field">
+              <label>Name (breeders only, optional for offspring)</label>
+              <input name="name" placeholder="e.g. Nagini">
+            </div>
+            <div class="field">
+              <label>Code (offspring, optional)</label>
+              <input name="code" placeholder="e.g. NAOP05">
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Category</label>
+              <select name="category" required>
+                <option value="snake">Snake</option>
+                <option value="lizard">Lizard</option>
+                <option value="gecko">Gecko</option>
+                <option value="turtle">Turtle</option>
+                <option value="other">Other reptile</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Species</label>
+              <input name="species" placeholder="e.g. Ball Python">
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Role</label>
+              <select name="role" required>
+                <option value="offspring">Offspring</option>
+                <option value="breeder">Breeder (adult)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Sex</label>
+              <select name="sex">
+                <option value="">Unknown</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Gene / Morph</label>
+              <input name="gene" placeholder="e.g. Pastel Mojave">
+            </div>
+            <div class="field">
+              <label>Status</label>
+              <select name="status">
+                <option value="available">Available</option>
+                <option value="reserved">Reserved</option>
+                <option value="sold">Sold</option>
+                <option value="not_for_sale">Not for sale</option>
+                <option value="breeder">Breeder (not for sale)</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Price (USD)</label>
+              <input name="price" type="number" step="0.01" min="0" placeholder="e.g. 250">
+            </div>
+            <div class="field">
+              <label>Birth date</label>
+              <input name="birth_date" type="date">
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Sire (father)</label>
+              <select name="father_id"><option value="">—</option></select>
+            </div>
+            <div class="field">
+              <label>Dam (mother)</label>
+              <select name="mother_id"><option value="">—</option></select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Weight (optional)</label>
+            <input name="weight" placeholder="e.g. 850g">
+          </div>
+          <div class="field">
+            <label>Image URL</label>
+            <input name="image_url" placeholder="https://… or imgs/snakes/opal.jpg">
+            <div class="help">Paste any image URL or use a path to a local image inside <code>imgs/</code>.</div>
+            <div style="margin-top:.6rem;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;">
+              <input type="file" id="animalImageUpload" accept="image/*">
+              <button class="btn btn-ghost btn-sm" type="button" id="animalImageUploadBtn"><i class="fas fa-upload"></i> Use uploaded image</button>
+              <button class="btn btn-ghost btn-sm" type="button" id="animalImageClearBtn"><i class="fas fa-eraser"></i> Clear image</button>
+            </div>
+            <div class="help">Upload stores the image directly in the database as a Data URL (best for small images).</div>
+          </div>
+          <div class="field">
+            <label>Description</label>
+            <textarea name="description" rows="3" placeholder="Short notes about this animal"></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Save animal</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:.8rem;">
+          <h2 style="margin:0">All animals</h2>
+          <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;">
+            <select id="animalRoleFilter" style="padding:.5rem .8rem;border:1px solid var(--sand-300);border-radius:8px;">
+              <option value="">All roles</option>
+              <option value="breeder">Breeders</option>
+              <option value="offspring">Offspring</option>
+            </select>
+            <select id="animalStatusFilter" style="padding:.5rem .8rem;border:1px solid var(--sand-300);border-radius:8px;">
+              <option value="">All statuses</option>
+              <option value="available">Available</option>
+              <option value="reserved">Reserved</option>
+              <option value="sold">Sold</option>
+              <option value="breeder">Breeder</option>
+              <option value="not_for_sale">Not for sale</option>
+            </select>
+          </div>
+        </div>
+        <div id="animalsTableWrap"></div>
+      </div>
+    </section>
+
+    <!-- Pairs view -->
+    <section class="view hidden" id="view-pairs">
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <h2 id="pairFormTitle">Add a breeding pair</h2>
+          <button class="btn btn-ghost btn-sm" id="pairResetBtn" style="display:none;"><i class="fas fa-times"></i> Cancel edit</button>
+        </div>
+        <form id="pairForm">
+          <input type="hidden" name="id">
+          <div class="field-row">
+            <div class="field">
+              <label>Male (sire)</label>
+              <select name="male_id" required></select>
+            </div>
+            <div class="field">
+              <label>Female (dam)</label>
+              <select name="female_id" required></select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Title (optional, defaults to "Male × Female")</label>
+            <input name="title">
+          </div>
+          <div class="field">
+            <label>Description (optional)</label>
+            <textarea name="description" rows="2"></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Save pair</button>
+        </form>
+      </div>
+      <div class="panel">
+        <h2>All pairs</h2>
+        <div id="pairsTableWrap"></div>
+      </div>
+    </section>
+
+    <!-- Merchandise view -->
+    <section class="view hidden" id="view-merch">
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <h2 id="merchFormTitle">Add a merchandise piece</h2>
+          <button class="btn btn-ghost btn-sm" id="merchResetBtn" style="display:none;"><i class="fas fa-times"></i> Cancel edit</button>
+        </div>
+        <form id="merchForm">
+          <input type="hidden" name="id">
+          <div class="field-row">
+            <div class="field">
+              <label>Name *</label>
+              <input name="name" placeholder="e.g. Onyx Shed Necklace" required>
+            </div>
+            <div class="field">
+              <label>Code / SKU</label>
+              <input name="code" placeholder="e.g. NECK-007">
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Type *</label>
+              <select name="type" required>
+                <option value="necklace">Necklace</option>
+                <option value="bracelet">Bracelet</option>
+                <option value="earrings">Earrings</option>
+                <option value="headband">Headband</option>
+                <option value="ring">Ring</option>
+                <option value="keychain">Keychain</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Material</label>
+              <input name="material" placeholder="e.g. Stainless steel + onyx">
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Shed from (snake name)</label>
+              <input name="shed_source" placeholder="e.g. Nagini">
+              <div class="help">Which snake's shed was used? Leave blank if none.</div>
+            </div>
+            <div class="field">
+              <label>Price (USD)</label>
+              <input name="price" type="number" step="0.01" min="0">
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Status</label>
+              <select name="status">
+                <option value="available">Available</option>
+                <option value="reserved">Reserved</option>
+                <option value="sold">Sold</option>
+                <option value="not_for_sale">Not for sale</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Featured on homepage</label>
+              <select name="featured">
+                <option value="0">No</option>
+                <option value="1">Yes — show on homepage</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Sort order</label>
+              <input name="sort_order" type="number" value="0">
+              <div class="help">Lower numbers appear first.</div>
+            </div>
+            <div class="field">
+              <label>Image URL</label>
+              <input name="image_url" placeholder="imgs/merchandise/merch1.jpg or a full URL">
+              <div style="margin-top:.6rem;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;">
+                <input type="file" id="merchImageUpload" accept="image/*">
+                <button class="btn btn-ghost btn-sm" type="button" id="merchImageUploadBtn"><i class="fas fa-upload"></i> Use uploaded image</button>
+                <button class="btn btn-ghost btn-sm" type="button" id="merchImageClearBtn"><i class="fas fa-eraser"></i> Clear image</button>
+              </div>
+              <div class="help">Upload stores the image directly in the database as a Data URL (best for small images).</div>
+            </div>
+          </div>
+          <div class="field">
+            <label>Description</label>
+            <textarea name="description" rows="3" placeholder="Tell the story of this piece."></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Save piece</button>
+        </form>
+      </div>
+      <div class="panel">
+        <h2>All merchandise</h2>
+        <div id="merchTableWrap"></div>
+      </div>
+    </section>
+
+    <!-- Care sheets view -->
+    <section class="view hidden" id="view-care">
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <h2 id="careFormTitle">Add a care sheet</h2>
+          <button class="btn btn-ghost btn-sm" id="careResetBtn" style="display:none;"><i class="fas fa-times"></i> Cancel edit</button>
+        </div>
+        <form id="careForm">
+          <input type="hidden" name="id">
+          <div class="field-row">
+            <div class="field">
+              <label>Title *</label>
+              <input name="title" placeholder="e.g. Ball Python" required>
+            </div>
+            <div class="field">
+              <label>Sort order</label>
+              <input name="sort_order" type="number" value="0">
+            </div>
+          </div>
+          <div class="field">
+            <label>Summary (one line, shown before expanded)</label>
+            <input name="summary" placeholder="e.g. The classic beginner snake — docile, hardy and easy to keep.">
+          </div>
+          <div class="field">
+            <label>Content</label>
+            <textarea name="content" rows="10" placeholder="Write the full care guide. Line breaks are preserved."></textarea>
+            <div class="help">Tip: each line becomes a row on the public page. Great for things like "Temperature: 78–82°F ambient".</div>
+          </div>
+          <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Save care sheet</button>
+        </form>
+      </div>
+      <div class="panel">
+        <h2>All care sheets</h2>
+        <div id="careTableWrap"></div>
+      </div>
+    </section>
+
+    <!-- Requests view -->
+    <section class="view hidden" id="view-requests">
+      <div class="panel">
+        <h2>Purchase requests &amp; inquiries</h2>
+        <div id="requestsTableWrap"></div>
+      </div>
+    </section>
+
+    <!-- Family tree view -->
+    <section class="view hidden" id="view-tree">
+      <div class="panel">
+        <h2>Family tree</h2>
+        <p class="muted">Every breeding pair and the offspring it has produced.</p>
+        <div id="treeWrap" class="tree"></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script type="module" src="assets/admin.js"></script>
+</body>
+</html>

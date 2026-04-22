@@ -1,658 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Borealis Reptiles - Premium Snake Breeding</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        /* Password Protection Modal Styles */
-        .password-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            backdrop-filter: blur(10px);
-        }
-        
-        .password-container {
-            background: linear-gradient(135deg, #4a7c59, #2c5530);
-            padding: 3rem;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            max-width: 400px;
-            width: 90%;
-            animation: slideIn 0.5s ease-out;
-        }
-        
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .password-container h2 {
-            color: white;
-            margin-bottom: 1rem;
-            font-size: 2rem;
-        }
-        
-        .password-container p {
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-        
-        .password-input {
-            width: 100%;
-            padding: 1rem;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.9);
-            transition: all 0.3s ease;
-        }
-        
-        .password-input:focus {
-            outline: none;
-            background: white;
-            transform: scale(1.02);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-        }
-        
-        .password-submit {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-        
-        .password-submit:hover {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: rgba(255, 255, 255, 0.5);
-            transform: translateY(-2px);
-        }
-        
-        .error-message {
-            color: #ff6b6b;
-            margin-top: 1rem;
-            font-weight: 600;
-            animation: shake 0.5s ease-in-out;
-        }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-        
-        .hidden {
-            display: none !important;
-        }
-        
-        .site-content {
-            transition: opacity 0.3s ease;
-        }
-        
-        .site-content.blurred {
-            filter: blur(5px);
-            pointer-events: none;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Borealis Reptiles — Premium Ball Python & Reptile Breeding</title>
+<meta name="description" content="Borealis Reptiles: a small-scale breeder producing healthy, beautiful ball pythons and reptiles with care and integrity.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-    <!-- Password Protection Modal -->
-    <div id="passwordModal" class="password-modal">
-        <div class="password-container">
-            <h2><i class="fas fa-lock"></i> Access Required</h2>
-            <p>Please enter the password to access Borealis Reptiles</p>
-            <input type="password" id="passwordInput" class="password-input" placeholder="Enter password..." autocomplete="off">
-            <button id="passwordSubmit" class="password-submit">
-                <i class="fas fa-unlock"></i> Access Site
-            </button>
-            <div id="errorMessage" class="error-message hidden"></div>
-        </div>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <span class="logo"><i class="fas fa-dragon"></i></span>
+      <span>Borealis <em style="font-style:italic">Reptiles</em></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
+      <li><a href="#pairs" class="nav-link" data-section="pairs">Collection</a></li>
+      <li><a href="#merch" class="nav-link" data-section="merch">Merch</a></li>
+      <li><a href="#care" class="nav-link" data-section="care">Care</a></li>
+      <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+      <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="admin.html" class="btn btn-ghost btn-sm"><i class="fas fa-user-shield"></i> Admin</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
-    <div class="site-content">
-    <header>
-        <nav class="navbar">
-            <div class="nav-brand">
-                <h1><i class="fas fa-snake"></i> Borealis Reptiles</h1>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link active" data-tab="home">Home</a></li>
-                <li><a href="#merchandise" class="nav-link" data-tab="merchandise">Merchandise</a></li>
-                <li><a href="#about" class="nav-link" data-tab="about">About Us</a></li>
-                <li><a href="#care" class="nav-link" data-tab="care">Care Sheets</a></li>
-                <li><a href="#albums" class="nav-link" data-tab="albums">Albums</a></li>
-                <li><a href="#contact" class="nav-link" data-tab="contact">Contact</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
-    </header>
+  </div>
+</nav>
 
-    <main>
-        <!-- Home Tab -->
-        <section id="home" class="tab-content active">
-            <div class="hero">
-                <div class="hero-content">
-                    <h2>Premium Snake Breeding</h2>
-                    <p>Discover our collection of beautiful, healthy snakes from our carefully selected breeding pairs.</p>
-                    <button class="cta-button" onclick="showTab('albums')">View Our Collection</button>
-                </div>
-                <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=600&h=400&fit=crop" alt="Beautiful snake">
-                </div>
-            </div>
-            
-            <div class="features">
-                <div class="feature-card">
-                    <i class="fas fa-heart"></i>
-                    <h3>Healthy Breeding</h3>
-                    <p>All our snakes are bred with health and genetics as our top priority.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-certificate"></i>
-                    <h3>Quality Guaranteed</h3>
-                    <p>Every snake comes with health guarantee and detailed care information.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-shipping-fast"></i>
-                    <h3>Safe Shipping</h3>
-                    <p>Professional shipping with live arrival guarantee.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Albums Tab -->
-        <section id="albums" class="tab-content">
-            <div class="container">
-                <h2>Our Breeding Pairs</h2>
-                <p class="section-description">Click on any breeding pair to view their available offspring</p>
-                
-                <div class="breeding-pairs-grid">
-                    <div class="breeding-pair-card" onclick="showBabies('pair1')">
-                        <div class="pair-title">
-                            <h3>Nagini × Opal</h3>
-                            <p class="pair-genetics">Pastel × Mojave</p>
-                        </div>
-                        <div class="parents-container">
-                            <div class="parent">
-                                <div class="parent-image">
-                                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=200&h=150&fit=crop" alt="Nagini - Female">
-                                </div>
-                                <div class="parent-info">
-                                    <h4>Nagini</h4>
-                                    <p class="gene">Pastel</p>
-                                    <p class="gender female">♀ Female</p>
-                                </div>
-                            </div>
-                            <div class="breeding-symbol">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <div class="parent">
-                                <div class="parent-image">
-                                    <img src="https://images.unsplash.com/photo-1544966503-7cc4ac81b4a8?w=200&h=150&fit=crop" alt="Opal - Male">
-                                </div>
-                                <div class="parent-info">
-                                    <h4>Opal</h4>
-                                    <p class="gene">Mojave</p>
-                                    <p class="gender male">♂ Male</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="breeding-pair-card" onclick="showBabies('pair2')">
-                        <div class="pair-title">
-                            <h3>Nagini × Axinite</h3>
-                            <p class="pair-genetics">Pastel × Spider</p>
-                        </div>
-                        <div class="parents-container">
-                            <div class="parent">
-                                <div class="parent-image">
-                                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=200&h=150&fit=crop" alt="Nagini - Female">
-                                </div>
-                                <div class="parent-info">
-                                    <h4>Nagini</h4>
-                                    <p class="gene">Pastel</p>
-                                    <p class="gender female">♀ Female</p>
-                                </div>
-                            </div>
-                            <div class="breeding-symbol">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <div class="parent">
-                                <div class="parent-image">
-                                    <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=200&h=150&fit=crop" alt="Axinite - Male">
-                                </div>
-                                <div class="parent-info">
-                                    <h4>Axinite</h4>
-                                    <p class="gene">Spider</p>
-                                    <p class="gender male">♂ Male</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="breeding-pair-card" onclick="showBabies('pair3')">
-                        <div class="pair-title">
-                            <h3>Jasper × Peridot</h3>
-                            <p class="pair-genetics">Pinstripe × Mojave</p>
-                        </div>
-                        <div class="parents-container">
-                            <div class="parent">
-                                <div class="parent-image">
-                                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=200&h=150&fit=crop" alt="Jasper - Male">
-                                </div>
-                                <div class="parent-info">
-                                    <h4>Jasper</h4>
-                                    <p class="gene">Pinstripe</p>
-                                    <p class="gender male">♂ Male</p>
-                                </div>
-                            </div>
-                            <div class="breeding-symbol">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <div class="parent">
-                                <div class="parent-image">
-                                    <img src="https://images.unsplash.com/photo-1544966503-7cc4ac81b4a8?w=200&h=150&fit=crop" alt="Peridot - Female">
-                                </div>
-                                <div class="parent-info">
-                                    <h4>Peridot</h4>
-                                    <p class="gene">Mojave</p>
-                                    <p class="gender female">♀ Female</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Merchandise Tab -->
-        <section id="merchandise" class="tab-content">
-            <div class="container">
-                <h2>Snake Skin Jewelry</h2>
-                <p class="section-description">Exquisite jewelry crafted from premium snake skin materials</p>
-                
-                <div class="merchandise-grid">
-                    <div class="merch-item">
-                        <div class="merch-image">
-                            <img src="imgs/merchandise/merch1.jpg" alt="Snake Skin Necklace">
-                        </div>
-                        <div class="merch-info">
-                            <h3>Snake Skin Necklace</h3>
-                            <div class="merch-details">
-                                <div class="detail-item">
-                                    <span class="label">Code:</span>
-                                    <span class="value">NECK-001</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="label">Gene:</span>
-                                    <span class="value">Pastel</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="label">Material:</span>
-                                    <span class="value">Premium Leather</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="label">Length:</span>
-                                    <span class="value">18 inches</span>
-                                </div>
-                            </div>
-                            <div class="price">$89.99</div>
-                        </div>
-                    </div>
-
-                    <div class="merch-item">
-                        <div class="merch-image">
-                            <img src="imgs/merchandise/merch2.jpg" alt="Snake Skin Headband">
-                        </div>
-                        <div class="merch-info">
-                            <h3>Snake Skin Headband</h3>
-                            <div class="merch-details">
-                                <div class="detail-item">
-                                    <span class="label">Code:</span>
-                                    <span class="value">HEAD-002</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="label">Gene:</span>
-                                    <span class="value">Mojave</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="label">Material:</span>
-                                    <span class="value">Exotic Leather</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="label">Size:</span>
-                                    <span class="value">One Size</span>
-                                </div>
-                            </div>
-                            <div class="price">$129.99</div>
-                        </div>
-                    </div>
-
-                    <div class="merch-item">
-                        <div class="merch-image">
-                            <img src="imgs/merchandise/merch3.jpg" alt="Snake Skin Bracelet">
-                        </div>
-                        <div class="merch-info">
-                            <h3>Snake Skin Bracelet</h3>
-                            <div class="merch-details">
-                                <div class="detail-item">
-                                    <span class="label">Code:</span>
-                                    <span class="value">BRAC-003</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="label">Gene:</span>
-                                    <span class="value">Spider</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="label">Material:</span>
-                                    <span class="value">Luxury Leather</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="label">Size:</span>
-                                    <span class="value">7 inches</span>
-                                </div>
-                            </div>
-                            <div class="price">$149.99</div>
-                        </div>
-                    </div>
-
-                    <div class="merch-item">
-                        <div class="merch-image">
-                            <img src="imgs/snakes/amber.jpg" alt="Amber Snake Skin Earrings">
-                        </div>
-                        <div class="merch-info">
-                            <h3>Amber Snake Skin Earrings</h3>
-                            <div class="merch-details">
-                                <div class="detail-item">
-                                    <span class="label">Code:</span>
-                                    <span class="value">EARR-004</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="label">Gene:</span>
-                                    <span class="value">Amber</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="label">Material:</span>
-                                    <span class="value">Premium Leather</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="label">Style:</span>
-                                    <span class="value">Drop Earrings</span>
-                                </div>
-                            </div>
-                            <div class="price">$119.99</div>
-                        </div>
-                    </div>
-
-                    <div class="merch-item">
-                        <div class="merch-image">
-                            <img src="imgs/snakes/emerald.jpg" alt="Emerald Snake Skin Necklace">
-                        </div>
-                        <div class="merch-info">
-                            <h3>Emerald Snake Skin Necklace</h3>
-                            <div class="merch-details">
-                                <div class="detail-item">
-                                    <span class="label">Code:</span>
-                                    <span class="value">NECK-005</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="label">Gene:</span>
-                                    <span class="value">Emerald</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="label">Material:</span>
-                                    <span class="value">Exotic Leather</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="label">Length:</span>
-                                    <span class="value">20 inches</span>
-                                </div>
-                            </div>
-                            <div class="price">$199.99</div>
-                        </div>
-                    </div>
-
-                    <div class="merch-item">
-                        <div class="merch-image">
-                            <img src="imgs/snakes/quartize.jpg" alt="Quartzite Snake Skin Bracelet">
-                        </div>
-                        <div class="merch-info">
-                            <h3>Quartzite Snake Skin Bracelet</h3>
-                            <div class="merch-details">
-                                <div class="detail-item">
-                                    <span class="label">Code:</span>
-                                    <span class="value">BRAC-006</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="label">Gene:</span>
-                                    <span class="value">Quartzite</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="label">Material:</span>
-                                    <span class="value">Luxury Leather</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="label">Size:</span>
-                                    <span class="value">8 inches</span>
-                                </div>
-                            </div>
-                            <div class="price">$249.99</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Us Tab -->
-        <section id="about" class="tab-content">
-            <div class="container">
-                <h2>About Borealis Reptiles</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <p>Welcome to Borealis Reptiles, where passion meets expertise in snake breeding. We've been dedicated to producing healthy, beautiful snakes for over 10 years.</p>
-                        <p>Our facility is designed with the welfare of our animals as the top priority. We maintain strict breeding standards and provide comprehensive care for all our snakes.</p>
-                        <h3>Our Mission</h3>
-                        <p>To provide reptile enthusiasts with healthy, well-socialized snakes while promoting responsible breeding practices and education.</p>
-                    </div>
-                    <div class="about-image">
-                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=500&h=400&fit=crop" alt="Our facility">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Care Sheets Tab -->
-        <section id="care" class="tab-content">
-            <div class="container">
-                <h2>Care Sheets</h2>
-                <div class="care-sheets">
-                    <div class="care-card">
-                        <h3>Ball Python Care</h3>
-                        <ul>
-                            <li>Temperature: 75-80°F ambient, 88-92°F basking</li>
-                            <li>Humidity: 50-60%</li>
-                            <li>Feeding: Weekly for juveniles, bi-weekly for adults</li>
-                            <li>Enclosure: 40-gallon minimum for adults</li>
-                        </ul>
-                    </div>
-                    <div class="care-card">
-                        <h3>Corn Snake Care</h3>
-                        <ul>
-                            <li>Temperature: 75-85°F ambient, 85-90°F basking</li>
-                            <li>Humidity: 40-50%</li>
-                            <li>Feeding: Weekly for juveniles, bi-weekly for adults</li>
-                            <li>Enclosure: 20-gallon minimum for adults</li>
-                        </ul>
-                    </div>
-                    <div class="care-card">
-                        <h3>King Snake Care</h3>
-                        <ul>
-                            <li>Temperature: 75-85°F ambient, 85-90°F basking</li>
-                            <li>Humidity: 40-60%</li>
-                            <li>Feeding: Weekly for juveniles, bi-weekly for adults</li>
-                            <li>Enclosure: 30-gallon minimum for adults</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Tab -->
-        <section id="contact" class="tab-content">
-            <div class="container">
-                <h2>Contact Us</h2>
-                <p class="section-description">Have a question or interested in purchasing? We'd love to hear from you!</p>
-                
-                <div class="contact-form-container">
-                    <form id="contactForm" class="contact-form">
-                        <div class="form-group">
-                            <label for="inquiryType">Type of Inquiry *</label>
-                            <select id="inquiryType" name="inquiryType" required onchange="toggleFormFields()">
-                                <option value="">Please select...</option>
-                                <option value="question">Question</option>
-                                <option value="buyRequest">Buy Request</option>
-                            </select>
-                        </div>
-
-                        <!-- Common fields -->
-                        <div class="form-group">
-                            <label for="name">Full Name *</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">Email Address *</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="phone">Phone Number *</label>
-                            <input type="tel" id="phone" name="phone" required>
-                        </div>
-
-                        <!-- Question-specific fields -->
-                        <div id="questionFields" class="form-fields" style="display: none;">
-                            <div class="form-group">
-                                <label for="question">Your Question *</label>
-                                <textarea id="question" name="question" rows="4" placeholder="Please describe your question in detail..."></textarea>
-                            </div>
-                        </div>
-
-                        <!-- Buy Request-specific fields -->
-                        <div id="buyRequestFields" class="form-fields" style="display: none;">
-                            <div class="form-group">
-                                <label for="snakeCode">Snake Code *</label>
-                                <input type="text" id="snakeCode" name="snakeCode" placeholder="e.g., NAOP01, NAAX02, JAPE03">
-                                <small class="form-help">Enter the code of the snake you're interested in purchasing</small>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="address">Shipping Address *</label>
-                                <textarea id="address" name="address" rows="3" placeholder="Please provide your complete shipping address..."></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="additionalDetails">Additional Details</label>
-                                <textarea id="additionalDetails" name="additionalDetails" rows="3" placeholder="Any special requests, questions about the snake, or additional information..."></textarea>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <button type="submit" class="submit-btn">
-                                <i class="fas fa-paper-plane"></i>
-                                Send Message
-                            </button>
-                        </div>
-                    </form>
-
-                    <div class="contact-info">
-                        <h3>Get in Touch</h3>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <div>
-                                <h4>Email</h4>
-                                <p>info@borealisreptiles.com</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <div>
-                                <h4>Phone</h4>
-                                <p>(555) 123-4567</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div>
-                                <h4>Location</h4>
-                                <p>123 Reptile Lane<br>Snake City, SC 12345</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-clock"></i>
-                            <div>
-                                <h4>Business Hours</h4>
-                                <p>Mon-Fri: 9AM-6PM<br>Sat: 10AM-4PM<br>Sun: Closed</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Baby Modal -->
-    <div id="babyModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2 id="modalTitle">Available Offspring</h2>
-            <div id="babyGrid" class="baby-grid">
-                <!-- Baby cards will be populated by JavaScript -->
-            </div>
-        </div>
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">Small-scale breeder · est. 2015</span>
+      <h1>Beautiful reptiles, raised with<br><em>care, patience &amp; integrity</em>.</h1>
+      <p class="hero-lead">
+        Borealis Reptiles is a family operation specialising in ball pythons and
+        select reptile morphs. Every animal is hand-raised, health-checked and
+        paired with a detailed care sheet.
+      </p>
+      <div class="hero-actions">
+        <a href="#pairs" class="btn btn-primary"><i class="fas fa-leaf"></i> Browse the collection</a>
+        <a href="#contact" class="btn btn-ghost"><i class="fas fa-envelope"></i> Get in touch</a>
+      </div>
     </div>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Borealis Reptiles. All rights reserved.</p>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-            </div>
-        </div>
-    </footer>
+    <div class="hero-image">
+      <img src="imgs/snakes/emerald.jpg"
+           onerror="this.src='https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=1000&fit=crop'"
+           alt="A beautiful ball python">
+      <div class="hero-badge"><i class="fas fa-certificate"></i> Health-guaranteed hatchlings</div>
     </div>
+  </div>
+</section>
 
-    <script src="script.js"></script>
+<!-- Features -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Why choose us</span>
+      <h2>A better way to bring a reptile home</h2>
+      <p>We focus on long-term wellbeing — genetics, nutrition and temperament — so every animal leaves us thriving.</p>
+    </div>
+    <div class="features">
+      <div class="feature">
+        <div class="icon"><i class="fas fa-heart"></i></div>
+        <h3>Health first</h3>
+        <p>Every hatchling is vet-checked, proven-feeding and comes with a health guarantee.</p>
+      </div>
+      <div class="feature">
+        <div class="icon"><i class="fas fa-dna"></i></div>
+        <h3>Documented genetics</h3>
+        <p>Pairings are planned with care and each animal's lineage is transparent and traceable.</p>
+      </div>
+      <div class="feature">
+        <div class="icon"><i class="fas fa-box"></i></div>
+        <h3>Safe delivery</h3>
+        <p>Overnight, temperature-controlled shipping with a live-arrival guarantee.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Breeding pairs -->
+<section class="section alt" id="pairs">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Our collection</span>
+      <h2>Breeding pairs &amp; available offspring</h2>
+      <p>Click any pair to meet the parents and browse their hatchlings. Every animal has its own profile.</p>
+    </div>
+    <div id="pairsGrid" class="pairs-grid">
+      <div class="empty"><i class="fas fa-spinner fa-spin"></i> Loading pairs…</div>
+    </div>
+    <div style="text-align:center;margin-top:2rem;">
+      <button class="btn btn-accent" id="viewAllPairsBtn"><i class="fas fa-layer-group"></i> View all pairs</button>
+    </div>
+  </div>
+</section>
+
+<!-- Merchandise -->
+<section class="section" id="merch">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Handcrafted by Sara</span>
+      <h2>Merchandise &amp; shed jewelry</h2>
+      <p>One-of-a-kind pieces made by hand, often featuring preserved snake sheds from our own animals.</p>
+    </div>
+    <div id="merchFeatured" class="merch-grid">
+      <div class="empty"><i class="fas fa-spinner fa-spin"></i> Loading pieces…</div>
+    </div>
+    <div style="text-align:center;margin-top:2rem;">
+      <button class="btn btn-accent" id="viewAllMerchBtn"><i class="fas fa-layer-group"></i> View all pieces</button>
+    </div>
+  </div>
+</section>
+
+<!-- Care sheets -->
+<section class="section alt" id="care">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Keeping your reptile happy</span>
+      <h2>Care sheets</h2>
+      <p>Simple, evidence-based husbandry basics. Click any card to expand.</p>
+    </div>
+    <div id="careGrid" class="care-grid">
+      <div class="empty"><i class="fas fa-spinner fa-spin"></i> Loading care sheets…</div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="section alt" id="about">
+  <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;">
+    <div>
+      <span class="eyebrow">Our story</span>
+      <h2>Born of a long northern winter.</h2>
+      <p>What started as one Pastel ball python in a college dorm has grown into a small, intentional breeding program. We keep our numbers low so each snake gets individual attention, a clean environment, and time to grow out healthy.</p>
+      <p>We share everything we learn — diet, heating, handling — and we're always happy to answer questions, whether or not you're buying.</p>
+    </div>
+    <div class="hero-image" style="transform:rotate(1.5deg)">
+      <img src="imgs/snakes/amber.jpg"
+           onerror="this.src='https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=1000&fit=crop'"
+           alt="Snake">
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="section" id="contact">
+  <div class="container" style="display:grid;grid-template-columns:1.3fr 1fr;gap:3rem;">
+    <div>
+      <span class="eyebrow">Contact</span>
+      <h2>Questions or interested in an animal?</h2>
+      <p>Drop a message below and we'll get back within 24 hours.</p>
+
+      <form id="contactForm" class="panel" style="padding:1.75rem;margin-top:1rem;">
+        <div class="field">
+          <label for="inquiryType">Type of inquiry</label>
+          <select id="inquiryType" name="inquiry_type" required>
+            <option value="">Choose…</option>
+            <option value="question">General question</option>
+            <option value="buy">Buy request</option>
+          </select>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="name">Full name</label>
+            <input id="name" name="customer_name" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="customer_email" required>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="phone">Phone (optional)</label>
+            <input type="tel" id="phone" name="customer_phone">
+          </div>
+          <div class="field" id="codeField">
+            <label for="snakeCode">Animal code (if buying)</label>
+            <input id="snakeCode" name="animal_code" placeholder="e.g. NAOP01">
+          </div>
+        </div>
+        <div class="field" id="addressField" style="display:none;">
+          <label for="address">Shipping address</label>
+          <textarea id="address" name="shipping_address" rows="3"></textarea>
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" placeholder="Tell us what you're looking for or ask us anything."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-paper-plane"></i> Send message
+        </button>
+      </form>
+    </div>
+    <div>
+      <div class="panel">
+        <h3>Get in touch</h3>
+        <p><i class="fas fa-envelope" style="color:var(--forest-600);width:22px"></i> info@borealisreptiles.com</p>
+        <p><i class="fas fa-phone" style="color:var(--forest-600);width:22px"></i> (555) 123-4567</p>
+        <p><i class="fas fa-location-dot" style="color:var(--forest-600);width:22px"></i> Snake City, SC</p>
+        <p><i class="fas fa-clock" style="color:var(--forest-600);width:22px"></i> Mon–Fri 9AM–6PM</p>
+      </div>
+      <div class="panel" style="margin-top:1rem">
+        <h3>Follow along</h3>
+        <div class="socials" style="display:flex;gap:.5rem;">
+          <a href="#" class="btn btn-ghost btn-sm"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="btn btn-ghost btn-sm"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="btn btn-ghost btn-sm"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Merch "view all" modal -->
+<div class="modal" id="merchModal" aria-hidden="true">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div>
+        <span class="eyebrow">Shop</span>
+        <h2 style="margin:0">All merchandise</h2>
+        <p class="muted" style="margin:.4rem 0 0">Click any piece for more detail or to enquire.</p>
+      </div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div id="merchAllGrid" class="merch-grid"></div>
+  </div>
+</div>
+
+<!-- Merch detail modal -->
+<div class="modal" id="merchDetailModal" aria-hidden="true">
+  <div class="modal-card" style="max-width:720px">
+    <div class="modal-head">
+      <span class="eyebrow" id="merchDetailEyebrow">—</span>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div id="merchDetailBody"></div>
+  </div>
+</div>
+
+<!-- Pair modal -->
+<div class="modal" id="pairModal" aria-hidden="true">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div>
+        <span class="eyebrow" id="pairEyebrow">Clutch</span>
+        <h2 id="pairTitle" style="margin:0">—</h2>
+        <p id="pairSub" class="muted" style="margin:.4rem 0 0"></p>
+      </div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div id="pairOffspringGrid" class="animal-grid"></div>
+  </div>
+</div>
+
+<!-- Pairs "view all" modal -->
+<div class="modal" id="pairsModal" aria-hidden="true">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div>
+        <span class="eyebrow">Collection</span>
+        <h2 style="margin:0">All breeding pairs</h2>
+        <p class="muted" style="margin:.4rem 0 0">Click any pair to view its clutch.</p>
+      </div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div id="pairsAllGrid" class="pairs-grid"></div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container grid">
+    <div>
+      <div class="brand" style="color:#fff"><span class="logo"><i class="fas fa-dragon"></i></span> Borealis Reptiles</div>
+      <p style="max-width:46ch;margin-top:1rem;">A small, intentional breeding program focused on healthy, well-tempered ball pythons and reptiles.</p>
+      <div class="socials">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <p><a href="#pairs">Collection</a></p>
+      <p><a href="#care">Care sheets</a></p>
+      <p><a href="#about">About us</a></p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p>info@borealisreptiles.com</p>
+      <p>(555) 123-4567</p>
+      <p><a href="admin.html">Admin login</a></p>
+    </div>
+  </div>
+  <div class="container bottom">© 2026 Borealis Reptiles. All rights reserved.</div>
+</footer>
+
+<script type="module" src="assets/site.js"></script>
 </body>
 </html>

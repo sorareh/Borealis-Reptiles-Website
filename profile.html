@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile — Borealis Reptiles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <span class="logo"><i class="fas fa-dragon"></i></span>
+      <span>Borealis <em style="font-style:italic">Reptiles</em></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#pairs">Collection</a></li>
+      <li><a href="index.html#care">Care</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="admin.html" class="btn btn-ghost btn-sm"><i class="fas fa-user-shield"></i> Admin</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container" style="padding:1.25rem 24px 0">
+  <a href="index.html#pairs" class="btn btn-ghost btn-sm"><i class="fas fa-arrow-left"></i> Back to collection</a>
+</div>
+
+<main class="container" id="profileRoot">
+  <div class="empty" style="padding:5rem 0">
+    <i class="fas fa-spinner fa-spin"></i> Loading profile…
+  </div>
+</main>
+
+<!-- Buy request modal -->
+<div class="modal" id="buyModal" aria-hidden="true">
+  <div class="modal-card" style="max-width:560px;">
+    <div class="modal-head">
+      <div>
+        <span class="eyebrow">Request to buy</span>
+        <h2 id="buyTitle" style="margin:0">Purchase request</h2>
+      </div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <form id="buyForm">
+      <div class="field-row">
+        <div class="field"><label>Full name</label><input name="customer_name" required></div>
+        <div class="field"><label>Email</label><input type="email" name="customer_email" required></div>
+      </div>
+      <div class="field"><label>Phone (optional)</label><input type="tel" name="customer_phone"></div>
+      <div class="field"><label>Shipping address</label><textarea name="shipping_address" rows="3" required></textarea></div>
+      <div class="field"><label>Notes / questions</label><textarea name="message" rows="3" placeholder="Anything we should know?"></textarea></div>
+      <div class="flex-end">
+        <button type="button" class="btn btn-ghost" data-close>Cancel</button>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit request</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container bottom">© 2026 Borealis Reptiles.</div>
+</footer>
+
+<script type="module" src="assets/profile.js"></script>
+</body>
+</html>

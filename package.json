@@ -1,0 +1,18 @@
+{
+  "name": "borealis-reptiles-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Borealis Reptiles — public site + admin + Cloudflare Pages D1 backend",
+  "scripts": {
+    "dev": "wrangler pages dev . --port 8788 --compatibility-date=2024-09-01 --d1 DB=borealis-db",
+    "db:init:local": "wrangler d1 execute borealis-db --local --file=schema.sql",
+    "db:seed:local": "wrangler d1 execute borealis-db --local --file=seed.sql",
+    "db:init": "wrangler d1 execute borealis-db --remote --file=schema.sql",
+    "db:seed": "wrangler d1 execute borealis-db --remote --file=seed.sql",
+    "deploy": "wrangler pages deploy . --project-name=borealis-reptiles"
+  },
+  "devDependencies": {
+    "wrangler": "^3.80.0"
+  }
+}
